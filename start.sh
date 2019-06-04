@@ -7,7 +7,7 @@ mix deps.get
 
 echo "Compiling..."
 mix compile
-if [ $? != 0]; then
+if [ $? != 0 ]; then
     echo -e "\n\nCould not compile"
     exit 1
 fi
