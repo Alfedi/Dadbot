@@ -14,4 +14,8 @@ defmodule Dadbot.Bot do
     {:ok, %{body: joke}} = Dadbot.Api.get_joke
     answer(context, joke)
   end
+
+  def handle({:inline_query, %{query: text}}, context) do
+    Dadbot.Api.search(text)
+  end
 end
