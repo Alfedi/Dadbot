@@ -4,7 +4,7 @@ defmodule Dadbot.Api do
   def client() do
     middlewares = [
       {Tesla.Middleware.BaseUrl, "https://icanhazdadjoke.com"},
-      {Tesla.Middleware.Headers, [{"Accept", "text/plain"}]}
+      {Tesla.Middleware.Headers, [{"Accept", "application/json"}]}
     ]
 
     Tesla.client(middlewares)
