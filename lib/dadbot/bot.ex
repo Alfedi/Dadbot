@@ -11,6 +11,8 @@ defmodule Dadbot.Bot do
 
   def bot(), do: @bot
 
+  def handle({:inline_query, %{query: ""}}, _context), do: :ok
+
   def handle({:command, "start", _}, context) do
     answer(context, "Wellcome to the hell of humour")
   end
@@ -22,24 +24,33 @@ defmodule Dadbot.Bot do
   end
 
   def handle({:inline_query, %{query: text}}, context) do
-    case text |> Dadbot.Api.search() |> generate_articles do
-      {:ok, articles} -> answer_inline_query(context, articles)
-      _ -> Logger.error("Upsie woopsie")
-    end
+    articles = text |> Dadbot.Api.search() |> generate_articles
+    answer_inline_query(context, articles)
   end
 
   def generate_articles(text) do
-    {:ok,
-     [
-       %InlineQueryResultArticle{
-         type: "article",
-         id: text,
-         title: text,
-         input_message_content: %InputTextMessageContent{
-           message_text: text,
-           parse_mode: "Markdown"
-         }
-       }
-     ]}
+    case text do
+      {:ok, %{body: body}} ->
+        {:ok, %{"results" => result}} = Jason.decode(body)
+
+        Enum.map(result, fn x ->
+          %InlineQueryResultArticle{
+            type: "article",
+            id: x["id"],
+            title: x["joke"],
+            input_message_content: %InputTextMessageContent{
+              message_text: x["joke"],
+              parse_mode: "Markdown"
+            }
+          }
+        end)
+
+      _ ->
+        :error
+    end
+  end
+
+  def handle(_, _) do
+    :nothing
   end
 end

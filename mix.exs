@@ -22,7 +22,7 @@ defmodule Dadbot.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_gram, "~> 0.6"},
+      {:ex_gram, "~> 0.6.2"},
       {:jason, ">= 1.0.0"},
       {:tesla, "~> 1.2.1"}
     ]
