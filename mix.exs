@@ -5,7 +5,7 @@ defmodule Dadbot.MixProject do
     [
       app: :dadbot,
       version: "0.1.0",
-      elixir: "~> 1.8",
+      elixir: ">= 1.7.4",
       start_permanent: Mix.env() == :prod,
       deps: deps()
     ]
@@ -22,7 +22,7 @@ defmodule Dadbot.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_gram, "~> 0.6.2"},
+      {:ex_gram, "~> 0.7.1"},
       {:jason, ">= 1.0.0"},
       {:tesla, "~> 1.2.1"}
     ]

@@ -11,10 +11,10 @@ defmodule Dadbot.Api do
   end
 
   def get_joke() do
-    Tesla.get(client, "/")
+    Tesla.get(client(), "/")
   end
 
   def search(query) do
-    Tesla.get(client, "/search", query: [page: 1, limit: 5, term: query])
+    Tesla.get(client(), "/search", query: [page: 1, limit: 5, term: query])
   end
 end
